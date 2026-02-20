@@ -58,6 +58,7 @@ import struct
 import sys
 import threading
 import time
+import decimal
 
 from twampy import __version__
 
@@ -887,14 +888,14 @@ def main():
     group = p_sender.add_argument_group("TWL sender options")
     group.add_argument("far_end", nargs="?", metavar="remote-ip:port", default="127.0.0.1:20001")
     group.add_argument("near_end", nargs="?", metavar="local-ip:port", default=":20000")
-    group.add_argument("-i", "--interval", metavar="msec", default=100, type=int, help="[100,1000]")
+    group.add_argument("-i", "--interval", metavar="msec", default=100.00, type=decimal.Decimal, help="[100.00,1000.00]")
     group.add_argument("-c", "--count", metavar="packets", default=100, type=int, help="[1..9999]")
 
     p_control = subparsers.add_parser("controller", help="TWAMP controller", parents=[debug_parser, ipopt_parser])
     group = p_control.add_argument_group("TWAMP controller options")
     group.add_argument("far_end", nargs="?", metavar="remote-ip:port", default="127.0.0.1:20001")
     group.add_argument("near_end", nargs="?", metavar="local-ip:port", default=":20000")
-    group.add_argument("-i", "--interval", metavar="msec", default=100, type=int, help="[100,1000]")
+    group.add_argument("-i", "--interval", metavar="msec", default=100.00, type=decimal.Decimal, help="[100.00,1000.00]")
     group.add_argument("-c", "--count", metavar="packets", default=100, type=int, help="[1..9999]")
 
     p_ctclient = subparsers.add_parser(
