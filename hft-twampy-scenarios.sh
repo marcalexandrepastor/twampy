@@ -424,14 +424,12 @@ scenario_asymmetric_path_ttl_sweep() {
         log "  TTL = $ttl"
         outfile="$RESULTS_DIR/${TS}_14_ttl_sweep_ttl${ttl}.${LOG_FORMAT}"
         $TASKSET twampy sender \
-            --interface  "$LOCAL_IFACE" \
-            --output     "$LOG_FORMAT"  \
             --count      100            \
             --interval   10             \
             --padding    0              \
             --tos        184           \
             --ttl        "$ttl"         \
-            "$RESPONDER_IP" \
+            "$RESPONDER_IP:$RESPONDER_PORT" \
             | tee "$outfile" || true    # TTL-expired packets will cause errors; continue
     done
     log "TTL sweep complete. Check $RESULTS_DIR/${TS}_14_ttl_sweep_*.json"
